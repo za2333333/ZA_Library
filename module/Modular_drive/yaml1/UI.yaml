@@ -1,0 +1,12 @@
+loginNull:
+  username: ""
+  password: ""
+  result: "请输入邮箱名"
+emailFormat:
+  username: "21gasyfq1"
+  password: "12sq2"
+  result: "您输入的邮箱名格式不正确"
+loginError:
+  username: "121ssx@sina.com"
+  password: "1232szaxs"
+  result: "登录名或密码错误"

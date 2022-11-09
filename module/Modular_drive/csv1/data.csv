@@ -1,0 +1,4 @@
+username,password,result
+,,请输入邮箱名
+123123dfasdfasd,fadsfadsf,您输入的邮箱名格式不正确
+12312@123.com,asdfads,登录名或密码错误
