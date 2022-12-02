@@ -6,33 +6,29 @@ from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-import requests
 import aiohttp
 import aiofiles
+import easygui as g
+import sys
 
 # 登录模块
-def login():
+def login(usernum):
     driver = webdriver.Chrome()
     global drver
-    url = 'https://user.qzone.qq.com/1083554260/4'
+    url = ('https://user.qzone.qq.com/%s/4'%usernum)
     driver.get(url)
-    sleep(20)
-    xf = driver.find_element(by=By.XPATH,value='//*[@id="login_frame"]')
-    driver.switch_to.frame(xf)
-    driver.find_element(by=By.XPATH,value='//*[@id="img_out_1083554260"]').click()
-    sleep(10)
+    g.msgbox(msg='请登录你的QQ账号，登录完成后，点击确认按钮！',title='登录确认',ok_button='确认')
+    sleep(15)
     return driver
 
 # 获取cookie
 def get_cookie(driver):
     cookies = driver.get_cookies()
-    cookielist = [cookie['name'] + '=' + cookie['value'] for cookie in cookies]
-    cookiestr = ';'.join(cookielist)
-    return cookiestr
+    cookielist = ';'.join([cookie['name'] + '=' + cookie['value'] for cookie in cookies])
+    return cookielist
 
 # 获取动态加载后的空间相册代码
 def get_page(driver):
-    # driver = login()
     driver.set_window_size(480, 800)
     js = "window.scrollTo(0,document.body.scrollHeight)"
     driver.execute_script(js)
@@ -49,20 +45,14 @@ def get_album_list(page):
     album_list = page_text.find_all('div',class_="bg bor3 mod-album js-album-item js-album-transition")
     list1 = []
     for albums in album_list:
-        id = albums.get('data-id')
-        name = albums.get('data-name')
-        num = albums.get('data-total')
+        id,name,num = albums.get('data-id'),albums.get('data-name'),albums.get('data-total')
         datalist = []
         if (int(num) > 400):
-            datalist.append(id)
-            datalist.append(name)
-            datalist.append(400)
+            datalist.extend([id,name,400])
             list1.append(datalist)
             datalist = []
             num = int(num) - 400
-        datalist.append(id)
-        datalist.append(name)
-        datalist.append(num)
+        datalist.extend([id, name, num])
         list1.append(datalist)
     return list1
 
@@ -72,14 +62,14 @@ def get_g_tk(driver):
     return g_tk
 
 # 处理所有相册的URL
-def get_url(lists,g_tk):
+def get_url(lists,g_tk,usernum):
     urllist = []
     olddata = [0]
     for data in lists:
         if (data[0]==olddata[0]):
-            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=1083554260&topicId=%s&noTopic=0&uin=1083554260&pageStart=400&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,data[0],int(data[2])))
+            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=%s&topicId=%s&noTopic=0&uin=%s&pageStart=400&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,usernum,data[0],usernum,int(data[2])))
         else:
-            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=1083554260&topicId=%s&noTopic=0&uin=1083554260&pageStart=0&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,data[0],int(data[2])))
+            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=%s&topicId=%s&noTopic=0&uin=%s&pageStart=0&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,usernum,data[0],usernum,int(data[2])))
         urllist.append(url)
         olddata = data
     return urllist
@@ -120,8 +110,14 @@ async def download_photos(photolist,session):
     async with session.get(url = photolist[1],verify_ssl=False) as resp:
         if not (os.path.exists(f'./photo/{photolist[2]}/')):
             os.mkdir(f'./photo/{photolist[2]}/')
+        print(photolist[2])
         async with aiofiles.open(f'./photo/{photolist[2]}/{photolist[0]}',mode='xb') as f:
-            await f.write(await resp.content.read())
+            try:
+                await f.write(await resp.content.read())
+            except aiohttp.ClientPayloadError as ression:
+                g.msgbox(msg="网络原因，请检查网络后重新下载！")
+                print(f'网络报错{ression}，下载失败，停止下载')
+                sys.exit()
 
 # 提取照片信息
 async def get_photodata():
@@ -147,9 +143,15 @@ async def get_photodata():
         await asyncio.wait(task)
 
 def main():
+    while True:
+        usernum = g.enterbox(msg='请输入你的QQ账号：',title='账号输入')
+        if (usernum == None) or (usernum == ''):
+            continue
+        else:
+            break
     # 登录相册页面，传参
-    driver = login()
-    # 获取相册页面动态加载之后的页面代码
+    driver = login(usernum)
+    # # 获取相册页面动态加载之后的页面代码
     page = get_page(driver)
     # 获取cookie
     cookies = get_cookie(driver)
@@ -158,15 +160,18 @@ def main():
     # 从页面代码中提取相册的信息
     list1 = get_album_list(page)
     # 提取所有相册的URL
-    urllist = get_url(list1,g_tk)
-    headers = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+    urllist = get_url(list1,g_tk,usernum)
+    headers ={
         "cookie": cookies
     }
+    g.msgbox(msg='开始下载，下载完成后会有弹窗告知',title='进度')
     # 获取各个相册网页的源代码，提取所有照片的信息
     asyncio.run(get_photo(urllist,headers,list1))
     # 获取所有照片信息分析并下载写入
+    g.msgbox(msg='下载中,请等待',title='进度')
     asyncio.run(get_photodata())
+    g.msgbox(msg='下载完成',title='进度')
+    driver.quit()
 
 if __name__ == "__main__":
     main()
