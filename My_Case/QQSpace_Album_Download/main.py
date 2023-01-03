@@ -10,12 +10,13 @@ import aiohttp
 import aiofiles
 import easygui as g
 import sys
+import mkdir
 
 # 登录模块
 def login(usernum):
     driver = webdriver.Chrome()
     global drver
-    url = ('https://user.qzone.qq.com/%s/4'%usernum)
+    url = (f'https://user.qzone.qq.com/{usernum}/4')
     driver.get(url)
     g.msgbox(msg='请登录你的QQ账号，登录完成后，点击确认按钮！',title='登录确认',ok_button='确认')
     sleep(15)
@@ -31,11 +32,13 @@ def get_cookie(driver):
 def get_page(driver):
     driver.set_window_size(480, 800)
     js = "window.scrollTo(0,document.body.scrollHeight)"
+    # 执行JavaScript代码来控制浏览器滚动条的位置
     driver.execute_script(js)
     sleep(5)
     f1 = driver.find_element(by=By.XPATH,value='//*[@id="tphoto"]')
     driver.switch_to.frame(f1)
     sleep(1)
+    # 获取动态加载后的页面代码
     page = driver.page_source
     return page
 
@@ -45,13 +48,13 @@ def get_album_list(page):
     album_list = page_text.find_all('div',class_="bg bor3 mod-album js-album-item js-album-transition")
     list1 = []
     for albums in album_list:
-        id,name,num = albums.get('data-id'),albums.get('data-name'),albums.get('data-total')
+        id, name, num = albums.get('data-id'), albums.get('data-name'), albums.get('data-total')
         datalist = []
-        if (int(num) > 400):
-            datalist.extend([id,name,400])
+        if (int(num) > 500):
+            datalist.extend([id,name,500])
             list1.append(datalist)
             datalist = []
-            num = int(num) - 400
+            num = int(num) - 500
         datalist.extend([id, name, num])
         list1.append(datalist)
     return list1
@@ -67,7 +70,7 @@ def get_url(lists,g_tk,usernum):
     olddata = [0]
     for data in lists:
         if (data[0]==olddata[0]):
-            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=%s&topicId=%s&noTopic=0&uin=%s&pageStart=400&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,usernum,data[0],usernum,int(data[2])))
+            url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=%s&topicId=%s&noTopic=0&uin=%s&pageStart=500&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,usernum,data[0],usernum,int(data[2])))
         else:
             url = ("https://h5.qzone.qq.com/proxy/domain/photo.qzone.qq.com/fcgi-bin/cgi_list_photo?g_tk=%s&callback=shine0_Callback&t=826272405&mode=0&idcNum=4&hostUin=%s&topicId=%s&noTopic=0&uin=%s&pageStart=0&pageNum=%d&skipCmtCount=0&singleurl=1&batchId=&notice=0&appid=4&inCharset=utf-8&outCharset=utf-8&source=qzone&plat=qzone&outstyle=json&format=jsonp&json_esc=1&question=&answer=&callbackFun=shine0&_=1668081263010" % (g_tk,usernum,data[0],usernum,int(data[2])))
         urllist.append(url)
@@ -116,7 +119,7 @@ async def download_photos(photolist,session):
                 await f.write(await resp.content.read())
             except aiohttp.ClientPayloadError as ression:
                 g.msgbox(msg="网络原因，请检查网络后重新下载！")
-                print(f'网络报错{ression}，下载失败，停止下载')
+                print(f'网络报错：{ression}，下载失败，停止下载')
                 sys.exit()
 
 # 提取照片信息
@@ -143,15 +146,24 @@ async def get_photodata():
         await asyncio.wait(task)
 
 def main():
+    tips = '注意事项如下：\n' \
+           '\t1、单个相册的照片数量不能超过1000！\n' \
+           '\t2、相册的总数不能超过40！\n' \
+           '\t3、只支持照片的下载，视频会被下载为预览图片！\n' \
+           '\t4、请保证该程序所在目录下的空间足够大！\n' \
+           '\t5、如果因网络原因下载终止，请重新运行此程序！'
+    g.msgbox(msg=tips, title='注意事项')
+    mkdir.cret_dir('./data')
+    mkdir.cret_dir('./photo')
     while True:
-        usernum = g.enterbox(msg='请输入你的QQ账号：',title='账号输入')
+        usernum = g.enterbox(msg='请输入你的QQ账号：', title='账号输入')
         if (usernum == None) or (usernum == ''):
             continue
         else:
             break
     # 登录相册页面，传参
     driver = login(usernum)
-    # # 获取相册页面动态加载之后的页面代码
+    # 获取相册页面动态加载之后的页面代码
     page = get_page(driver)
     # 获取cookie
     cookies = get_cookie(driver)
@@ -168,10 +180,13 @@ def main():
     # 获取各个相册网页的源代码，提取所有照片的信息
     asyncio.run(get_photo(urllist,headers,list1))
     # 获取所有照片信息分析并下载写入
-    g.msgbox(msg='下载中,请等待',title='进度')
+    g.msgbox(msg='下载中,请等待，请勿点击浏览器页面！！！',title='进度')
     asyncio.run(get_photodata())
     g.msgbox(msg='下载完成',title='进度')
     driver.quit()
+    mkdir.del_dir('./data')
+    photopath = mkdir.photo_path()
+    g.msgbox(msg=f'相册路径为：{photopath}', title='相册路径')
 
 if __name__ == "__main__":
     main()
