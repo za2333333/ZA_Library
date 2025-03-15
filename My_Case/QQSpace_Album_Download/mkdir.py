@@ -4,7 +4,7 @@ import shutil
 
 def cret_dir(path):
     if (os.path.exists(path)):
-        shutil.rmtree(path)
+        shutil.rmtree(path) # 先删除，在创建
 
     os.mkdir(path)
 

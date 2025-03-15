@@ -1,0 +1,191 @@
+[2024-03-29 10:02:59,940][log_print.py 75][INFO]: ------开始执行next2-----
+[2024-03-29 10:02:59,940][log_print.py 76][INFO]: ------此函数的注释为
+tab1中确认按钮关联的功能，用于跳转到tab2-----
+[2024-03-29 10:02:59,941][log_print.py 86][INFO]: ------next2执行成功------
+[2024-03-29 10:03:01,358][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:03:01,359][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:03:24,796][log_print.py 86][INFO]: ------selectfile执行成功------
+[2024-03-29 10:03:29,348][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:03:29,348][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:03:37,028][log_print.py 86][INFO]: ------selectfile执行成功------
+[2024-03-29 10:03:45,279][log_print.py 75][INFO]: ------开始执行checkdata-----
+[2024-03-29 10:03:45,279][log_print.py 76][INFO]: ------此函数的注释为
+tab2中确认按钮关联的功能，用于检查文件是否选择，QQ账号是否填写-----
+[2024-03-29 10:03:45,287][log_print.py 86][INFO]: ------checkdata执行成功------
+[2024-03-29 10:03:46,731][log_print.py 75][INFO]: ------开始执行loginUI-----
+[2024-03-29 10:03:46,732][log_print.py 76][INFO]: ------此函数的注释为
+tab3中确认已读按钮关联的功能，用于打开浏览器-----
+[2024-03-29 10:03:55,322][log_print.py 81][ERROR]: ------loginUI执行失败：Message: Service chromedriver unexpectedly exited. Status code was: -9
+------
+[2024-03-29 10:03:55,325][log_print.py 82][ERROR]: loginUI is error,here are details:Traceback (most recent call last):
+  File "/Users/Github_Library/My_Case/QQSpace_Album_Download/log_print.py", line 78, in log
+    func(*args,**kwargs)
+  File "/Users/Github_Library/My_Case/QQSpace_Album_Download/UIdraft.py", line 150, in loginUI
+    self.driver = webdriver.Chrome()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/selenium/webdriver/chrome/webdriver.py", line 70, in __init__
+    super(WebDriver, self).__init__(DesiredCapabilities.CHROME['browserName'], "goog",
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/selenium/webdriver/chromium/webdriver.py", line 90, in __init__
+    self.service.start()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/selenium/webdriver/common/service.py", line 98, in start
+    self.assert_process_still_running()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/site-packages/selenium/webdriver/common/service.py", line 110, in assert_process_still_running
+    raise WebDriverException(
+selenium.common.exceptions.WebDriverException: Message: Service chromedriver unexpectedly exited. Status code was: -9
+
+
+[2024-03-29 10:06:48,383][log_print.py 75][INFO]: ------开始执行next2-----
+[2024-03-29 10:06:48,384][log_print.py 76][INFO]: ------此函数的注释为
+tab1中确认按钮关联的功能，用于跳转到tab2-----
+[2024-03-29 10:06:48,385][log_print.py 86][INFO]: ------next2执行成功------
+[2024-03-29 10:06:49,749][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:06:49,750][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:07:12,819][log_print.py 86][INFO]: ------selectfile执行成功------
+[2024-03-29 10:07:18,196][log_print.py 75][INFO]: ------开始执行checkdata-----
+[2024-03-29 10:07:18,197][log_print.py 76][INFO]: ------此函数的注释为
+tab2中确认按钮关联的功能，用于检查文件是否选择，QQ账号是否填写-----
+[2024-03-29 10:07:18,209][log_print.py 86][INFO]: ------checkdata执行成功------
+[2024-03-29 10:07:19,000][log_print.py 75][INFO]: ------开始执行loginUI-----
+[2024-03-29 10:07:19,001][log_print.py 76][INFO]: ------此函数的注释为
+tab3中确认已读按钮关联的功能，用于打开浏览器-----
+[2024-03-29 10:07:57,409][log_print.py 75][INFO]: ------开始执行threadFunc1-----
+[2024-03-29 10:07:57,410][log_print.py 86][INFO]: ------loginUI执行成功------
+[2024-03-29 10:07:57,410][log_print.py 76][INFO]: ------此函数的注释为
+打开QQ空间登录页面-----
+[2024-03-29 10:07:57,413][log_print.py 75][INFO]: ------开始执行login-----
+[2024-03-29 10:07:57,413][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:14,374][log_print.py 86][INFO]: ------login执行成功------
+[2024-03-29 10:08:14,378][log_print.py 86][INFO]: ------threadFunc1执行成功------
+[2024-03-29 10:08:14,378][log_print.py 75][INFO]: ------开始执行change_enable-----
+[2024-03-29 10:08:14,378][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号2的关联功能，用于改变控件的enable状态-----
+[2024-03-29 10:08:14,379][log_print.py 86][INFO]: ------change_enable执行成功------
+[2024-03-29 10:08:17,399][log_print.py 75][INFO]: ------开始执行start_download-----
+[2024-03-29 10:08:17,399][log_print.py 76][INFO]: ------此函数的注释为
+tab3中确认登录按钮关联功能，修改UI，实现照片下载流程-----
+[2024-03-29 10:08:18,951][log_print.py 75][INFO]: ------开始执行mainUI-----
+[2024-03-29 10:08:18,951][log_print.py 86][INFO]: ------start_download执行成功------
+[2024-03-29 10:08:18,951][log_print.py 76][INFO]: ------此函数的注释为
+实现照片下载流程-----
+[2024-03-29 10:08:18,964][log_print.py 75][INFO]: ------开始执行get_page-----
+[2024-03-29 10:08:18,964][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:25,356][log_print.py 86][INFO]: ------get_page执行成功------
+[2024-03-29 10:08:25,356][log_print.py 75][INFO]: ------开始执行get_cookie-----
+[2024-03-29 10:08:25,356][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:25,364][log_print.py 86][INFO]: ------get_cookie执行成功------
+[2024-03-29 10:08:26,031][log_print.py 75][INFO]: ------开始执行get_g_tk-----
+[2024-03-29 10:08:26,031][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:26,038][log_print.py 86][INFO]: ------get_g_tk执行成功------
+[2024-03-29 10:08:26,039][log_print.py 75][INFO]: ------开始执行get_album_list-----
+[2024-03-29 10:08:26,039][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:26,193][log_print.py 86][INFO]: ------get_album_list执行成功------
+[2024-03-29 10:08:26,193][log_print.py 75][INFO]: ------开始执行get_url-----
+[2024-03-29 10:08:26,193][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:08:26,193][log_print.py 86][INFO]: ------get_url执行成功------
+[2024-03-29 10:13:28,097][log_print.py 75][INFO]: ------开始执行go_tab-----
+[2024-03-29 10:13:28,100][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号4的关联功能，用于跳转tab页-----
+[2024-03-29 10:13:28,136][log_print.py 86][INFO]: ------go_tab执行成功------
+[2024-03-29 10:13:28,138][log_print.py 75][INFO]: ------开始执行append_critical-----
+[2024-03-29 10:13:28,138][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号3的关联功能，用于打开异常提示弹窗-----
+[2024-03-29 10:13:28,821][log_print.py 75][INFO]: ------开始执行print_to_textbrowser-----
+[2024-03-29 10:13:28,822][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号1的关联功能，用于向文本框中添加文本内容-----
+[2024-03-29 10:13:28,824][log_print.py 86][INFO]: ------print_to_textbrowser执行成功------
+[2024-03-29 10:25:42,146][log_print.py 86][INFO]: ------append_critical执行成功------
+[2024-03-29 10:29:07,323][log_print.py 75][INFO]: ------开始执行next2-----
+[2024-03-29 10:29:07,325][log_print.py 76][INFO]: ------此函数的注释为
+tab1中确认按钮关联的功能，用于跳转到tab2-----
+[2024-03-29 10:29:07,327][log_print.py 86][INFO]: ------next2执行成功------
+[2024-03-29 10:29:08,659][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:29:08,659][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:29:31,525][log_print.py 86][INFO]: ------selectfile执行成功------
+[2024-03-29 10:29:38,176][log_print.py 75][INFO]: ------开始执行checkdata-----
+[2024-03-29 10:29:38,176][log_print.py 76][INFO]: ------此函数的注释为
+tab2中确认按钮关联的功能，用于检查文件是否选择，QQ账号是否填写-----
+[2024-03-29 10:29:38,186][log_print.py 86][INFO]: ------checkdata执行成功------
+[2024-03-29 10:29:39,176][log_print.py 75][INFO]: ------开始执行loginUI-----
+[2024-03-29 10:29:39,177][log_print.py 76][INFO]: ------此函数的注释为
+tab3中确认已读按钮关联的功能，用于打开浏览器-----
+[2024-03-29 10:29:45,094][log_print.py 75][INFO]: ------开始执行threadFunc1-----
+[2024-03-29 10:29:45,094][log_print.py 86][INFO]: ------loginUI执行成功------
+[2024-03-29 10:29:45,094][log_print.py 76][INFO]: ------此函数的注释为
+打开QQ空间登录页面-----
+[2024-03-29 10:29:45,094][log_print.py 75][INFO]: ------开始执行login-----
+[2024-03-29 10:29:45,094][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:01,882][log_print.py 86][INFO]: ------login执行成功------
+[2024-03-29 10:30:01,883][log_print.py 86][INFO]: ------threadFunc1执行成功------
+[2024-03-29 10:30:01,883][log_print.py 75][INFO]: ------开始执行change_enable-----
+[2024-03-29 10:30:01,883][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号2的关联功能，用于改变控件的enable状态-----
+[2024-03-29 10:30:01,883][log_print.py 86][INFO]: ------change_enable执行成功------
+[2024-03-29 10:30:04,275][log_print.py 75][INFO]: ------开始执行start_download-----
+[2024-03-29 10:30:04,276][log_print.py 76][INFO]: ------此函数的注释为
+tab3中确认登录按钮关联功能，修改UI，实现照片下载流程-----
+[2024-03-29 10:30:06,507][log_print.py 75][INFO]: ------开始执行mainUI-----
+[2024-03-29 10:30:06,507][log_print.py 86][INFO]: ------start_download执行成功------
+[2024-03-29 10:30:06,507][log_print.py 76][INFO]: ------此函数的注释为
+实现照片下载流程-----
+[2024-03-29 10:30:06,514][log_print.py 75][INFO]: ------开始执行get_page-----
+[2024-03-29 10:30:06,514][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:12,907][log_print.py 86][INFO]: ------get_page执行成功------
+[2024-03-29 10:30:12,907][log_print.py 75][INFO]: ------开始执行get_cookie-----
+[2024-03-29 10:30:12,907][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:12,915][log_print.py 86][INFO]: ------get_cookie执行成功------
+[2024-03-29 10:30:13,464][log_print.py 75][INFO]: ------开始执行get_g_tk-----
+[2024-03-29 10:30:13,464][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:13,472][log_print.py 86][INFO]: ------get_g_tk执行成功------
+[2024-03-29 10:30:13,472][log_print.py 75][INFO]: ------开始执行get_album_list-----
+[2024-03-29 10:30:13,472][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:13,603][log_print.py 86][INFO]: ------get_album_list执行成功------
+[2024-03-29 10:30:13,603][log_print.py 75][INFO]: ------开始执行get_url-----
+[2024-03-29 10:30:13,603][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:30:13,603][log_print.py 86][INFO]: ------get_url执行成功------
+[2024-03-29 10:35:15,721][log_print.py 75][INFO]: ------开始执行go_tab-----
+[2024-03-29 10:35:15,722][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号4的关联功能，用于跳转tab页-----
+[2024-03-29 10:35:15,753][log_print.py 86][INFO]: ------go_tab执行成功------
+[2024-03-29 10:35:15,753][log_print.py 75][INFO]: ------开始执行append_critical-----
+[2024-03-29 10:35:15,753][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号3的关联功能，用于打开异常提示弹窗-----
+[2024-03-29 10:35:15,953][log_print.py 75][INFO]: ------开始执行print_to_textbrowser-----
+[2024-03-29 10:35:15,953][log_print.py 76][INFO]: ------此函数的注释为
+自定义信号1的关联功能，用于向文本框中添加文本内容-----
+[2024-03-29 10:35:15,953][log_print.py 86][INFO]: ------print_to_textbrowser执行成功------
+[2024-03-29 10:35:19,869][log_print.py 86][INFO]: ------append_critical执行成功------
+[2024-03-29 10:48:12,679][log_print.py 75][INFO]: ------开始执行login-----
+[2024-03-29 10:48:12,680][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:48:49,682][log_print.py 86][INFO]: ------login执行成功------
+[2024-03-29 10:48:56,073][log_print.py 75][INFO]: ------开始执行get_cookie-----
+[2024-03-29 10:48:56,073][log_print.py 76][INFO]: ------此函数的注释为
+None-----
+[2024-03-29 10:48:56,081][log_print.py 86][INFO]: ------get_cookie执行成功------
+[2024-03-29 10:50:15,551][log_print.py 75][INFO]: ------开始执行next2-----
+[2024-03-29 10:50:15,551][log_print.py 76][INFO]: ------此函数的注释为
+tab1中确认按钮关联的功能，用于跳转到tab2-----
+[2024-03-29 10:50:15,553][log_print.py 86][INFO]: ------next2执行成功------
+[2024-03-29 10:50:17,650][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:50:17,651][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:50:24,107][log_print.py 86][INFO]: ------selectfile执行成功------
+[2024-03-29 10:50:25,922][log_print.py 75][INFO]: ------开始执行selectfile-----
+[2024-03-29 10:50:25,923][log_print.py 76][INFO]: ------此函数的注释为
+tab2中浏览按钮关联的功能，用于打开文件选择的弹窗-----
+[2024-03-29 10:50:45,337][log_print.py 86][INFO]: ------selectfile执行成功------

@@ -13,9 +13,7 @@ import sys
 import mkdir
 
 # 登录模块
-def login(usernum):
-    driver = webdriver.Chrome()
-    global drver
+def login(usernum,driver):
     url = (f'https://user.qzone.qq.com/{usernum}/4')
     driver.get(url)
     g.msgbox(msg='请登录你的QQ账号，登录完成后，点击确认按钮！',title='登录确认',ok_button='确认')
@@ -106,7 +104,10 @@ async def write_url(url,headers,list1,session):
 # 请求所有相册的信息
 async def get_photo(urllist,headers,list1):
     task = []
-    async with aiohttp.ClientSession() as session:
+    timeout = aiohttp.ClientTimeout(total=600)  # 将超时时间设置为600秒
+    connector = aiohttp.TCPConnector(limit=50)  # 将并发数量降低
+    async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+    # async with aiohttp.ClientSession() as session:
         i=0
         for url in urllist:
             task.append(asyncio.create_task(write_url(url,headers,list1[i],session)))
@@ -116,7 +117,8 @@ async def get_photo(urllist,headers,list1):
 # 下载照片并保存
 async def download_photos(photolist,session):
     async with session.get(url = photolist[1],verify_ssl=False) as resp:
-        if not (os.path.exists(f'./photo/{photolist[2]}/')):
+        aaa='/Users/Github_Library/My_Case/QQSpace_Album_Download/photo'
+        if not (os.path.exists(f'{aaa}/{photolist[2]}/')):
             os.mkdir(f'./photo/{photolist[2]}/')
         print(photolist[2])
         async with aiofiles.open(f'./photo/{photolist[2]}/{photolist[0]}',mode='xb') as f:
@@ -169,7 +171,9 @@ def main():
         else:
             break
     # 登录相册页面，传参
-    driver = login(usernum)
+    driver = webdriver.Chrome()
+    global drver
+    driver = login(usernum,driver)
     # 获取相册页面动态加载之后的页面代码
     page = get_page(driver)
     # 获取cookie
@@ -183,6 +187,7 @@ def main():
     headers ={
         "cookie": cookies
     }
+    print(headers)
     g.msgbox(msg='开始下载，下载完成后会有弹窗告知',title='进度')
     # 获取各个相册网页的源代码，提取所有照片的信息
     asyncio.run(get_photo(urllist,headers,list1))
